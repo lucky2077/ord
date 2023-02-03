@@ -41,6 +41,8 @@ pub(crate) struct Inscribe {
   pub(crate) no_backup: bool,
   #[clap(long, help = "Don't sign or broadcast transactions.")]
   pub(crate) dry_run: bool,
+  #[clap(help = "mint the inscription directly to this address")]
+  pub(crate) destination_address: Address,
 }
 
 impl Inscribe {
@@ -66,7 +68,7 @@ impl Inscribe {
 
     let commit_tx_change = [get_change_address(&client)?, get_change_address(&client)?];
 
-    let reveal_tx_destination = get_change_address(&client)?;
+    let reveal_tx_destination = self.destination_address;
 
     let (unsigned_commit_tx, reveal_tx, recovery_key_pair) =
       Inscribe::create_inscription_transactions(
