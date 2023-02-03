@@ -49,12 +49,20 @@ impl Inscribe {
 
     let inscription = Inscription::from_file(options.chain(), &self.file)?;
 
-    let index = Index::open(&options)?;
-    index.update()?;
+    let mut utxos = BTreeMap::new();
+    utxos.extend(
+      client
+        .list_unspent(Some(1), None, None, None, None)?
+        .into_iter()
+        .map(|utxo| {
+          let outpoint = OutPoint::new(utxo.txid, utxo.vout);
+          let amount = utxo.amount;
 
-    let mut utxos = index.get_unspent_outputs()?;
+          (outpoint, amount)
+        }),
+    );
 
-    let inscriptions = index.get_inscriptions(None)?;
+    let inscriptions = BTreeMap::new();
 
     let commit_tx_change = [get_change_address(&client)?, get_change_address(&client)?];
 
