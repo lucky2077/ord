@@ -80,7 +80,7 @@ impl Preview {
             no_backup: true,
             satpoint: None,
             dry_run: false,
-            destination_address: None,
+            destination_address: address,
           },
         )),
       }
