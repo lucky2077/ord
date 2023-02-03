@@ -54,7 +54,7 @@ impl Inscribe {
     let mut utxos = BTreeMap::new();
     utxos.extend(
       client
-        .list_unspent(Some(1), None, None, None, None)?
+        .list_unspent(Some(1), None, None, Some(true), None)?
         .into_iter()
         .map(|utxo| {
           let outpoint = OutPoint::new(utxo.txid, utxo.vout);
