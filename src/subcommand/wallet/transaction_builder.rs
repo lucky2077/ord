@@ -635,7 +635,7 @@ impl TransactionBuilder {
       .map(|satpoint| satpoint.outpoint)
       .collect::<BTreeSet<OutPoint>>();
 
-    println!(minimum_value);
+    println!("looking for cardinal utxo with min value: {}", minimum_value);
 
     for utxo in &self.utxos {
       if inscribed_utxos.contains(utxo) {
