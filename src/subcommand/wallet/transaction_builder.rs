@@ -635,7 +635,7 @@ impl TransactionBuilder {
       .map(|satpoint| satpoint.outpoint)
       .collect::<BTreeSet<OutPoint>>();
 
-    print_json(minimum_value);
+    println!(minimum_value);
 
     for utxo in &self.utxos {
       if inscribed_utxos.contains(utxo) {
