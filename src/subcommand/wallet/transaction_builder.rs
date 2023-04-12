@@ -41,6 +41,8 @@ use {
   std::collections::{BTreeMap, BTreeSet},
 };
 
+use log::{debug, error, info, warn};
+
 #[derive(Debug, PartialEq)]
 pub enum Error {
   DuplicateAddress(Address),
@@ -635,7 +637,7 @@ impl TransactionBuilder {
       .map(|satpoint| satpoint.outpoint)
       .collect::<BTreeSet<OutPoint>>();
 
-    println!("looking for cardinal utxo with min value: {}", minimum_value);
+    info!("looking for cardinal utxo with min value: {}", minimum_value);
 
     for utxo in &self.utxos {
       if inscribed_utxos.contains(utxo) {
